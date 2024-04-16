@@ -1,0 +1,359 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "gpuType": "T4",
+      "authorship_tag": "ABX9TyP/Pq/4c2R6KYH3yN/Z9iVL",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "accelerator": "GPU"
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/mohdsajid56/Activity1/blob/main/tag%20along%20code%20-%20ML\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install chardet"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-6ZLtmeP60wQ",
+        "outputId": "3373bec6-38b8-4c08-acff-d03d33ac59b4"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: chardet in /usr/local/lib/python3.10/dist-packages (5.2.0)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import chardet"
+      ],
+      "metadata": {
+        "id": "7sRvXrwq62n0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "tuFgNpi762p_"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "file_path = '/content/FoodBalanceSheets_E_Africa_NOFLAG (1).csv'"
+      ],
+      "metadata": {
+        "id": "nQVKRPYA62tW"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "with open(file_path, 'rb') as f:\n",
+        "    encoding = chardet.detect(f.read())['encoding']"
+      ],
+      "metadata": {
+        "id": "ygpVPgmC5mCR"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "hId-3jDM9ILg"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df = pd.read_csv(file_path, encoding='latin-1')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 141
+        },
+        "id": "jTnru9vm8kVS",
+        "outputId": "56952820-07ef-4b6e-8e10-23583212d169"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "name 'pd' is not defined",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-11-6d26aeb61ec3>\u001b[0m in \u001b[0;36m<cell line: 1>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mdf\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mpd\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mread_csv\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfile_path\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mencoding\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m'latin-1'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'pd' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.info()"
+      ],
+      "metadata": {
+        "id": "6Z8siCPj8nCj"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "grouped_data = df.groupby('Area')['Y2017'].sum().reset_index()\n"
+      ],
+      "metadata": {
+        "id": "GJwChAV983yM"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "area_highest_sum = grouped_data.loc[grouped_data['Y2017'].idxmax()]['Area']\n"
+      ],
+      "metadata": {
+        "id": "a6LO1weU8-6V"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Area with the highest sum in 2017:\", area_highest_sum)\n"
+      ],
+      "metadata": {
+        "id": "kwjm_v1B9JUJ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# unique countries\n",
+        "unique_countries = df['Area'].nunique()\n",
+        "print(unique_countries)"
+      ],
+      "metadata": {
+        "id": "haOTPNvl9Wue"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# element grouping operation\n",
+        "grouped_elements = df.groupby('Element').sum().reset_index()"
+      ],
+      "metadata": {
+        "id": "b52X8TUT9XKD"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "grouped_elements['Element'].dtype"
+      ],
+      "metadata": {
+        "id": "AIbee_WE9a1a"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "6WRzssgD_fB1"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "grouped_elements['Element'].apply(lambda x: not str(x).isnumeric())"
+      ],
+      "metadata": {
+        "id": "9XMd0irX_R5u"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "wine_data = df[(df['Item'] == 'Wine') & (df['Year'].isin(['Y2015', 'Y2018']))]"
+      ],
+      "metadata": {
+        "id": "6ZXby0WEC-YM"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "R2xeJiL0C-Uw"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "AoldCFHeC-Rx"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "-oyaUCtVC-O6"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "TAklfn_HC-MN"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#protein\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "madagascar_2015_data = df[(df['Area'] == 'Madagascar') & (df['Y2015'] == 2015)]"
+      ],
+      "metadata": {
+        "id": "R2dlwQoJCAXw"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "total_protein_supply_madagascar_2015 = madagascar_2015_data['Protein supply quantity (g/capita/day)'].sum()"
+      ],
+      "metadata": {
+        "id": "aQLjs3UcCAhp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "element_year_sum = df.groupby(['Element', ''])['Stock Variation'].sum().reset_index()\n"
+      ],
+      "metadata": {
+        "id": "UnEKs_9c-kw1"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "correlations = df.groupby('Year').corr().loc[:, 'Element Code']\n",
+        "\n",
+        "# Find the year with the least absolute correlation value\n",
+        "min_correlation_year = correlations.abs().idxmin()\n",
+        "\n",
+        "# Get the minimum correlation value\n",
+        "min_correlation_value = correlations.abs().min()\n",
+        "\n",
+        "# Print the result\n",
+        "print(\"Year with the least correlation with 'Element Code':\", min_correlation_year)\n",
+        "print(\"Minimum correlation value:\", min_correlation_value)"
+      ],
+      "metadata": {
+        "id": "JGwg6xhKAQWO"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "D-9viAcFAQZ2"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "yWNzK2x1APce"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
